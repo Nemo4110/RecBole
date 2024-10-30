@@ -1,5 +1,5 @@
 data_path: /mnt/data/
-dataset: mimic-iii-v1.4-drug-gnn-rec
+dataset: mimic-iii-v1.4-drug-labitem-rec
 # VSCode launch.json中，设置--dataset=mimic-iii-v1.4-drug-gnn-rec
 
 USER_ID_FIELD: user_id
@@ -9,12 +9,12 @@ RATING_FIELD: ~
 
 # Selectively Loading
 load_col:                       # (dict) The suffix of atomic files: (list) field names to be loaded.
-    item: [item_id, DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion, FORM_UNIT_DISP_Freq_1, FORM_UNIT_DISP_Freq_2, FORM_UNIT_DISP_Freq_3, FORM_UNIT_DISP_Freq_4, FORM_UNIT_DISP_Freq_5]
+    item: [item_id, FLUID, CATEGORY]
     user: [user_id, ADMISSION_TYPE, ADMISSION_LOCATION, DISCHARGE_LOCATION, INSURANCE, LANGUAGE, RELIGION, MARITAL_STATUS, ETHNICITY]
-    inter: [user_id, item_id, DRUG_TYPE, PROD_STRENGTH, DOSE_VAL_RX, DOSE_UNIT_RX, FORM_VAL_DISP, FORM_UNIT_DISP, ROUTE, ROW_ID]
+    inter: [user_id, item_id, VALUENUM_Z-SCORED, CATAGORY, ROW_ID]
 unload_col: ~                   # (dict) The suffix of atomic files: (list) field names NOT to be loaded.
 unused_col: ~                   # (dict) The suffix of atomic files: (list) field names which are loaded but not used.
-numerical_features: [DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion]
+numerical_features: [VALUENUM_Z-SCORED]
 normalize_all: False
 
 train_neg_sample_args:

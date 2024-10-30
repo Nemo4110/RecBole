@@ -1,17 +1,17 @@
 data_path: /mnt/data/
 dataset: mimic-iii-v1.4-drug-rec
 
-USER_ID_FIELD: HADM_ID
-ITEM_ID_FIELD: NDC
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
 # TIME_FIELD: ROW_ID
 TIME_FIELD: ~
 RATING_FIELD: ~
 
 # Selectively Loading
 load_col:                       # (dict) The suffix of atomic files: (list) field names to be loaded.
-    item: [NDC, DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion, FORM_UNIT_DISP_Freq_1, FORM_UNIT_DISP_Freq_2, FORM_UNIT_DISP_Freq_3, FORM_UNIT_DISP_Freq_4, FORM_UNIT_DISP_Freq_5]
-    user: [HADM_ID, ADMISSION_TYPE, ADMISSION_LOCATION, DISCHARGE_LOCATION, INSURANCE, LANGUAGE, RELIGION, MARITAL_STATUS, ETHNICITY]
-    inter: [HADM_ID, NDC] # DRUG_TYPE, PROD_STRENGTH, DOSE_VAL_RX, DOSE_UNIT_RX, FORM_VAL_DISP, FORM_UNIT_DISP, ROUTE, ROW_ID]
+    item: [item_id, DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion, FORM_UNIT_DISP_Freq_1, FORM_UNIT_DISP_Freq_2, FORM_UNIT_DISP_Freq_3, FORM_UNIT_DISP_Freq_4, FORM_UNIT_DISP_Freq_5]
+    user: [user_id, ADMISSION_TYPE, ADMISSION_LOCATION, DISCHARGE_LOCATION, INSURANCE, LANGUAGE, RELIGION, MARITAL_STATUS, ETHNICITY]
+    inter: [user_id, item_id] # DRUG_TYPE, PROD_STRENGTH, DOSE_VAL_RX, DOSE_UNIT_RX, FORM_VAL_DISP, FORM_UNIT_DISP, ROUTE, ROW_ID]
 unload_col: ~                   # (dict) The suffix of atomic files: (list) field names NOT to be loaded.
 unused_col: ~                   # (dict) The suffix of atomic files: (list) field names which are loaded but not used.
 numerical_features: [DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion]
