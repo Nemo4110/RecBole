@@ -1,4 +1,5 @@
-data_path: /mnt/data/
+# data_path: D:\OneDrive\Datasets\NODAY0  # local
+data_path: /root/autodl-tmp
 dataset: mimic-iii-v1.4-drug-seq-rec
 
 field_separator: "\t"
@@ -32,22 +33,18 @@ normalize_all: False
 # Sequential Model Needed
 ITEM_LIST_LENGTH_FIELD: item_length   # (str) Field name of the feature representing item sequences' length. 
 LIST_SUFFIX: _list              # (str) Suffix of field names which are generated as sequences.
-MAX_ITEM_LIST_LENGTH: 20        # (int) Maximum length of each generated sequence.
+MAX_ITEM_LIST_LENGTH: 10        # (int) Maximum length of each generated sequence.
 
 # Benchmark .inter file
 benchmark_filename: ["train", "valid", "test"]           # (list) List of pre-split user-item interaction suffix.
 
-# https://github.com/RUCAIBox/RecBole/issues/1067
-# 对于Xgboost或者context-aware相关的模型，不能用负采样的方式构造负例
-# 因为在构造负例时，无法设置负例的交互context信息(例如交互的时间)，因此要显式地通过threhold设置label的方式设置负例。
-# SOLUTION: 把时间戳列删除就行
-
 # for SASRec
 loss_type: 'CE'
 train_neg_sample_args: ~
-# train_neg_sample_args:
-#   distribution: uniform
-#   sample_num: 2
+#train_neg_sample_args:
+#  distribution: uniform
+#  sample_num: 2
+
 metrics: ['AUC', 'AP', 'ACC', 'Preci', 'Recal', 'F1']
 valid_metric: AUC
 eval_args:
