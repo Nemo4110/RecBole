@@ -1,4 +1,4 @@
-data_path: D:\OneDrive\Datasets\ALLDAY
+data_path: /root/autodl-tmp/
 dataset: mimic-iv-v2.2-drug-rec
 
 USER_ID_FIELD: user_id

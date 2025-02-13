@@ -1,9 +1,9 @@
-eval_args:
-  split: {'RS':[0.8,0.1,0.1]}
-  order: RO
-  group_by: ~
-  mode: labeled
-train_neg_sample_args: ~
+# eval_args:
+#   split: {'RS':[0.8,0.1,0.1]}
+#   order: RO
+#   group_by: ~
+#   mode: labeled
+# train_neg_sample_args: ~
 # context-aware 的初始化 metrics 配置会顶掉 自己在 yaml 中的 metrics 配置，因此这里要加一下需要计算的 metrics
 metrics: ['AUC', 'AP', 'ACC', 'Preci', 'Recal', 'F1', 'LogLoss']
 valid_metric: AUC
