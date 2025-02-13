@@ -1,0 +1,48 @@
+data_path: D:\OneDrive\Datasets
+dataset: mimic-iii-v1.4-drug-rec-day0
+
+USER_ID_FIELD: HADM_ID
+ITEM_ID_FIELD: NDC
+# TIME_FIELD: ROW_ID
+TIME_FIELD: ~
+RATING_FIELD: ~
+
+# Selectively Loading
+load_col:                       # (dict) The suffix of atomic files: (list) field names to be loaded.
+    item: [NDC, DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion, FORM_UNIT_DISP_Freq_1, FORM_UNIT_DISP_Freq_2, FORM_UNIT_DISP_Freq_3, FORM_UNIT_DISP_Freq_4, FORM_UNIT_DISP_Freq_5]
+    user: [HADM_ID, ADMISSION_TYPE, ADMISSION_LOCATION, DISCHARGE_LOCATION, INSURANCE, LANGUAGE, RELIGION, MARITAL_STATUS, ETHNICITY]
+    inter: [HADM_ID, NDC] # DRUG_TYPE, PROD_STRENGTH, DOSE_VAL_RX, DOSE_UNIT_RX, FORM_VAL_DISP, FORM_UNIT_DISP, ROUTE, ROW_ID]
+unload_col: ~                   # (dict) The suffix of atomic files: (list) field names NOT to be loaded.
+unused_col: ~                   # (dict) The suffix of atomic files: (list) field names which are loaded but not used.
+numerical_features: [DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion]
+normalize_all: False
+
+# # Sequential Model Needed
+# ITEM_LIST_LENGTH_FIELD: item_length   # (str) Field name of the feature representing item sequences' length.
+# LIST_SUFFIX: _list              # (str) Suffix of field names which are generated as sequences.
+# MAX_ITEM_LIST_LENGTH: 50        # (int) Maximum length of each generated sequence.
+# POSITION_FIELD: position_id     # (str) Field name of the generated position sequence.
+
+# Benchmark .inter file
+benchmark_filename: ["train", "valid", "test"]           # (list) List of pre-split user-item interaction suffix.
+
+# https://github.com/RUCAIBox/RecBole/issues/1067
+# 对于Xgboost或者context-aware相关的模型，不能用负采样的方式构造负例
+# 因为在构造负例时，无法设置负例的交互context信息(例如交互的时间)，因此要显式地通过threhold设置label的方式设置负例。
+# https://recbole.io/docs/user_guide/data/label_of_data.html?highlight=threshold
+train_neg_sample_args:
+  distribution: uniform
+  sample_num: 1
+metrics: ['AUC', 'AP', 'ACC', 'Preci', 'Recal', 'F1']
+valid_metric: AUC
+eval_args:
+  split: ~
+  group_by: ~
+  order: RO
+  mode: uni002
+
+epochs: 10
+stopping_step: 3
+
+embedding_size: 10
+hidden_size: 256

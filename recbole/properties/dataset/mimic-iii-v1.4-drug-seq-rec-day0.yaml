@@ -1,6 +1,5 @@
-# data_path: D:\OneDrive\Datasets\NODAY0  # local
-data_path: /root/autodl-tmp
-dataset: mimic-iii-v1.4-drug-seq-rec
+data_path: D:\OneDrive\Datasets
+dataset: mimic-iii-v1.4-drug-seq-rec-day0
 
 field_separator: "\t"
 seq_separator: " "
@@ -17,8 +16,8 @@ alias_of_item_id: ~         # (list) Fields' names remapped into the same index 
 
 # Selectively Loading
 load_col:                       # (dict) The suffix of atomic files: (list) field names to be loaded.
-    # item: [item_id, DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion, FORM_UNIT_DISP_Freq_1, FORM_UNIT_DISP_Freq_2, FORM_UNIT_DISP_Freq_3, FORM_UNIT_DISP_Freq_4, FORM_UNIT_DISP_Freq_5]
-    item: [item_id, DRUG_TYPE_MAIN_Proportion, FORM_UNIT_DISP_Freq_1, FORM_UNIT_DISP_Freq_2, FORM_UNIT_DISP_Freq_3, FORM_UNIT_DISP_Freq_4, FORM_UNIT_DISP_Freq_5]
+    item: [item_id, DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion, FORM_UNIT_DISP_Freq_1, FORM_UNIT_DISP_Freq_2, FORM_UNIT_DISP_Freq_3, FORM_UNIT_DISP_Freq_4, FORM_UNIT_DISP_Freq_5]
+    # item: [item_id, DRUG_TYPE_MAIN_Proportion, FORM_UNIT_DISP_Freq_1, FORM_UNIT_DISP_Freq_2, FORM_UNIT_DISP_Freq_3, FORM_UNIT_DISP_Freq_4, FORM_UNIT_DISP_Freq_5]
     user: [user_id, ADMISSION_TYPE, ADMISSION_LOCATION, DISCHARGE_LOCATION, INSURANCE, LANGUAGE, RELIGION, MARITAL_STATUS, ETHNICITY]
     inter: [user_id, item_id, item_id_list] # DRUG_TYPE, PROD_STRENGTH, DOSE_VAL_RX, DOSE_UNIT_RX, FORM_VAL_DISP, FORM_UNIT_DISP, ROUTE, ROW_ID]
 unload_col: ~                   # (dict) The suffix of atomic files: (list) field names NOT to be loaded.
@@ -26,21 +25,22 @@ unused_col: ~                   # (dict) The suffix of atomic files: (list) fiel
 
 # DIN cannot accept more than one numerical feature#1941
 # https://github.com/RUCAIBox/RecBole/issues/1941
-# numerical_features: [DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion]
-numerical_features: [DRUG_TYPE_MAIN_Proportion]
+# numerical_features: [DRUG_TYPE_MAIN_Proportion]
+numerical_features: [DRUG_TYPE_MAIN_Proportion, DRUG_TYPE_BASE_Proportion, DRUG_TYPE_ADDITIVE_Proportion]
 normalize_all: False
 
 # Sequential Model Needed
-ITEM_LIST_LENGTH_FIELD: item_length   # (str) Field name of the feature representing item sequences' length. 
+ITEM_LIST_LENGTH_FIELD: item_length   # (str) Field name of the feature representing item sequences' length.
 LIST_SUFFIX: _list              # (str) Suffix of field names which are generated as sequences.
-MAX_ITEM_LIST_LENGTH: 10        # (int) Maximum length of each generated sequence.
+MAX_ITEM_LIST_LENGTH: 20        # (int) Maximum length of each generated sequence.
 
 # Benchmark .inter file
 benchmark_filename: ["train", "valid", "test"]           # (list) List of pre-split user-item interaction suffix.
 
-# for SASRec
+# for SASRec, CORE, FEARec
 loss_type: 'CE'
 train_neg_sample_args: ~
+
 #train_neg_sample_args:
 #  distribution: uniform
 #  sample_num: 2
