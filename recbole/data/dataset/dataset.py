@@ -1965,7 +1965,7 @@ class Dataset(torch.utils.data.Dataset):
             self.inter_feat, self.uid_field, self.iid_field, form, value_field
         )
 
-    def _history_matrix(self, row, value_field=None, max_history_len=10):
+    def _history_matrix(self, row, value_field=None, max_history_len=None):
         """Get dense matrix describe user/item's history interaction records.
 
         ``history_matrix[i]`` represents ``i``'s history interacted item_id.
@@ -2046,7 +2046,7 @@ class Dataset(torch.utils.data.Dataset):
             torch.LongTensor(history_len),
         )
 
-    def history_item_matrix(self, value_field=None, max_history_len=None):
+    def history_item_matrix(self, value_field=None, max_history_len=50):
         """Get dense matrix describe user's history interaction records.
 
         ``history_matrix[i]`` represents user ``i``'s history interacted item_id.
